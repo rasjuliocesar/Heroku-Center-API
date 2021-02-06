@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.herokuCenterApi.entities.Restriction;
 import com.herokuCenterApi.repositories.RestrictionRepository;
+import com.herokuCenterApi.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class RestrictionService {
@@ -21,7 +22,7 @@ public class RestrictionService {
 	
 	public Restriction findById(Long id) {
 		Optional<Restriction> opt = repository.findById(id);
-		return opt.get();
+		return opt.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Restriction insert(Restriction rest) {
