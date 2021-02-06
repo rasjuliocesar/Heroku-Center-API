@@ -3,6 +3,8 @@ package com.herokuCenterApi.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -43,9 +45,13 @@ public class RestrictionService {
 	}
 	
 	public Restriction update(Long id, Restriction rest) {
-		Restriction obj = repository.getOne(id);
-		updateData(obj, rest);
-		return repository.save(obj);
+		try {
+			Restriction obj = repository.getOne(id);
+			updateData(obj, rest);
+			return repository.save(obj);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Restriction rest, Restriction obj) {
