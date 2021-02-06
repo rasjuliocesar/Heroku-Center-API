@@ -23,4 +23,22 @@ public class RestrictionService {
 		Optional<Restriction> opt = repository.findById(id);
 		return opt.get();
 	}
+	
+	public Restriction insert(Restriction rest) {
+		return repository.save(rest);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Restriction update(Long id, Restriction rest) {
+		Restriction obj = repository.getOne(id);
+		updateData(obj, rest);
+		return repository.save(obj);
+	}
+
+	private void updateData(Restriction rest, Restriction obj) {
+		rest.setDocumentNumber(obj.getDocumentNumber());
+	}
 }
