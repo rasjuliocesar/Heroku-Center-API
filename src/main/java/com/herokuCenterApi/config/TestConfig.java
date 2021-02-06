@@ -1,5 +1,6 @@
 package com.herokuCenterApi.config;
 
+import java.time.Instant;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ public class TestConfig implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Restriction rest1 = new Restriction(null, "00000000000");
-		Restriction rest2 = new Restriction(null, "11111111111");
-		Restriction rest3 = new Restriction(null, "22222222222");
-		Restriction rest4 = new Restriction(null, "33333333333");
+		Restriction rest1 = new Restriction(null, "00000000000", true, Instant.now(), Instant.now());
+		Restriction rest2 = new Restriction(null, "11111111111", true, Instant.now(), Instant.now());
+		Restriction rest3 = new Restriction(null, "22222222222", true, Instant.now(), Instant.now());
+		Restriction rest4 = new Restriction(null, "33333333333", true, Instant.now(), Instant.now());
 		
 		restrictionRepository.saveAll(Arrays.asList(rest1, rest2, rest3, rest4));
 	}

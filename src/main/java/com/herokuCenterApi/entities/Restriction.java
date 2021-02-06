@@ -1,6 +1,7 @@
 package com.herokuCenterApi.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,13 +20,19 @@ public class Restriction implements Serializable{
 	private Long id;
 	@NotNull
 	private String documentNumber;
+	private Boolean active;
+	private Instant createdAt;
+	private Instant updatedAt;
 	
 	public Restriction() {
 	}
 	
-	public Restriction(Long id, String documentNumber) {
+	public Restriction(Long id, String documentNumber, Boolean active, Instant createdAt, Instant updatedAt) {
 		this.id = id;
 		this.documentNumber = documentNumber;
+		this.active = active;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 	
 	public Long getId() {
@@ -42,6 +49,30 @@ public class Restriction implements Serializable{
 
 	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	@Override
