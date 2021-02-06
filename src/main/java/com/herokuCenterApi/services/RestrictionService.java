@@ -1,5 +1,6 @@
 package com.herokuCenterApi.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,8 @@ public class RestrictionService {
 	}
 	
 	public Restriction insert(Restriction rest) {
+		rest.setCreatedAt(Instant.now());
+		rest.setUpdatedAt(Instant.now());
 		return repository.save(rest);
 	}
 	
@@ -56,5 +59,7 @@ public class RestrictionService {
 
 	private void updateData(Restriction rest, Restriction obj) {
 		rest.setDocumentNumber(obj.getDocumentNumber());
+		rest.setActive(obj.getActive());
+		rest.setUpdatedAt(Instant.now());
 	}
 }
