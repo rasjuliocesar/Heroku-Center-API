@@ -35,10 +35,12 @@ public class TestConfig implements CommandLineRunner{
 		
 		restrictionRepository.saveAll(Arrays.asList(rest1, rest2, rest3, rest4));
 		
-		Registration reg = new Registration(1L, "Um Dois Três de Oliveira Quatro", "Boa Viagem Avenue", "51513220", "Pernambuco", "Brazil", 
-				sdf.parse("01/08/1986"), "12345678910", "+5581912345678", "1234@email.com", "APPROVED", 104);
+		Registration reg1 = new Registration(1L, "Um Dois Três de Oliveira Quatro", "Boa Viagem Avenue", "51513220", "Pernambuco", "Brazil", sdf.parse("01/08/1986"), "12345678910", "+5581912345678", "1234@email.com", 1500.00, "APPROVED", 104);
+		Registration reg2 = new Registration(1L, "Robert Marley", "Jamaica Avenue", "55546", "Kingston", "Jamaica", sdf.parse("06/02/1954"), "96336985200", "+504448678", "bob@email.com", 2500.00, "APPROVED", 105);
+		Registration reg3 = new Registration(1L, "Chaves Bolanos", "El Chavo del Ocho Street", "3388808", "Mexico City", "Mexico", sdf.parse("15/12/1960"), "1142888", "+1011052541", "chaves@email.com", 4500.00, "APPROVED", 106);
+		Registration reg4 = new Registration(1L, "King James", "St Charles Avenue", "78050", "Los Angeles", "United States", sdf.parse("31/06/1980"), "5542210", "+15041239999", "james@email.com", 6500.00, "APPROVED", 107);
 		
-		registrationRepository.saveAll(Arrays.asList(reg));
+		registrationRepository.saveAll(Arrays.asList(reg1, reg2, reg3, reg4));
 	}
 	
 	
