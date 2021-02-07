@@ -1,6 +1,7 @@
 package com.herokuCenterApi.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -38,6 +39,7 @@ public class Registration implements Serializable{
 	private String email;
 	@NotNull
 	private Double salary;
+	private Instant createdAt;
 	private String decision;
 	private Integer bankCode;
 
@@ -45,7 +47,7 @@ public class Registration implements Serializable{
 	}
 
 	public Registration(Long id, String fullName, String address, String zipCode, String state, String country,
-			Date birthDate, String document, String phone, String email, Double salary, String decision, Integer bankCode) {
+			Date birthDate, String document, String phone, String email, Double salary, Instant createdAt, String decision, Integer bankCode) {
 		super();
 		this.id = id;
 		this.fullName = fullName;
@@ -58,6 +60,7 @@ public class Registration implements Serializable{
 		this.phone = phone;
 		this.email = email;
 		this.salary = salary;
+		this.createdAt = createdAt;
 		this.decision = decision;
 		this.bankCode = bankCode;
 	}
@@ -148,6 +151,14 @@ public class Registration implements Serializable{
 	
 	public void setSalary(Double salary) {
 		this.salary = salary;
+	}
+	
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public String getDecision() {
