@@ -20,6 +20,7 @@ public class Restriction implements Serializable{
 	private Long id;
 	@NotNull
 	private String documentNumber;
+	@NotNull
 	private Boolean active;
 	private Instant createdAt;
 	private Instant updatedAt;
