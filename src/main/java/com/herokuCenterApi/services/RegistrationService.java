@@ -1,6 +1,9 @@
 package com.herokuCenterApi.services;
 
 import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.herokuCenterApi.entities.Registration;
 import com.herokuCenterApi.repositories.RegistrationRepository;
 import com.herokuCenterApi.services.exceptions.ResourceNotFoundException;
-import com.herokuCenterApi.utils.Utils;
 
 @Service
 public class RegistrationService {
@@ -30,27 +32,65 @@ public class RegistrationService {
 	public Registration insert(Registration reg) {
 		reg.setCreatedAt(Instant.now());
 		
-		Utils util = new Utils();
-		int age = util.calculateAge(reg.getBirthDate());
-		
-		if(age > 17) {
-			reg.setDecision("APPROVED");
+		try {
+			int age = calculateAge(reg.getBirthDate());
 			
-			Double value = reg.getSalary();
-			
-			if(value <= 1100.00) {
-				reg.setBankCode(1);
-			} else if(value > 1100.00 && value < 3300.00) {
-				reg.setBankCode(2);
-			} else if(value > 3300.00 && value < 6600.00) {
-				reg.setBankCode(3);
+			if(age > 17) {
+				String document = reg.getDocument();
+				
+				Boolean doc = restrictionDocument(document);
+				
+				if(!doc) {
+					reg.setDecision("APPROVED");
+					
+					Double value = reg.getSalary();
+					
+					if(value <= 1100.00) {
+						reg.setBankCode(1);
+					} else if(value > 1100.00 && value < 3300.00) {
+						reg.setBankCode(2);
+					} else if(value > 3300.00 && value < 6600.00) {
+						reg.setBankCode(3);
+					} else {
+						reg.setBankCode(4);
+					}
+				} else {
+					reg.setDecision("DISAPPROVED - Document");
+					reg.setBankCode(0);
+				}
 			} else {
-				reg.setBankCode(4);
+				reg.setDecision("DISAPPROVED - Age");
+				reg.setBankCode(0);
 			}
-		} else {
-			reg.setDecision("DISAPPROVED");
-			reg.setBankCode(0);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
+				
 		return registrationRepository.save(reg);
+	}
+	
+	private Integer calculateAge(Date birth) {
+		int age = 0;
+		
+		try {
+			Calendar today = Calendar.getInstance();
+			Calendar dateOfBirth = new GregorianCalendar();
+			
+			dateOfBirth.setTime(birth);
+			age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+			dateOfBirth.add(Calendar.YEAR, age);
+			
+			if(today.before(dateOfBirth)) {
+				age--;
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		
+		return age;
+	}
+	
+	private Boolean restrictionDocument(String doc) {
+		return false;
 	}
 }
