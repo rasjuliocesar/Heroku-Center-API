@@ -9,8 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.herokuCenterApi.entities.PixKey;
 import com.herokuCenterApi.entities.Registration;
 import com.herokuCenterApi.entities.Restriction;
+import com.herokuCenterApi.repositories.PixKeyRepository;
 import com.herokuCenterApi.repositories.RegistrationRepository;
 import com.herokuCenterApi.repositories.RestrictionRepository;
 
@@ -22,6 +24,8 @@ public class TestConfig implements CommandLineRunner{
 	private RestrictionRepository restrictionRepository;
 	@Autowired
 	private RegistrationRepository registrationRepository;
+	@Autowired
+	private PixKeyRepository pixKeyRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -41,7 +45,12 @@ public class TestConfig implements CommandLineRunner{
 		Registration reg4 = new Registration(null, "King James", "St Charles Avenue", "78050", "Los Angeles", "United States", sdf.parse("31/06/1980"), "5542210", "+15041239999", "james@email.com", 6500.00, Instant.now(), "APPROVED", 107);
 		
 		registrationRepository.saveAll(Arrays.asList(reg1, reg2, reg3, reg4));
+		
+		PixKey pix1 = new PixKey(null, "123456", Instant.now(), "001", "Marley");
+		PixKey pix2 = new PixKey(null, "654321", Instant.now(), "002", "Senna");
+		PixKey pix3 = new PixKey(null, "456789", Instant.now(), "003", "Chaves");
+		PixKey pix4 = new PixKey(null, "987654", Instant.now(), "004", "James");
+		
+		pixKeyRepository.saveAll(Arrays.asList(pix1, pix2, pix3, pix4));
 	}
-	
-	
 }
