@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.herokuCenterApi.entities.Registration;
+import com.herokuCenterApi.entities.Restriction;
 import com.herokuCenterApi.repositories.RegistrationRepository;
+import com.herokuCenterApi.repositories.RestrictionRepository;
 import com.herokuCenterApi.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -19,6 +21,8 @@ public class RegistrationService {
 
 	@Autowired
 	private RegistrationRepository registrationRepository;
+	@Autowired
+	private RestrictionRepository restrictionRepository;
 	
 	public List<Registration> findAll(){
 		return registrationRepository.findAll();
@@ -27,6 +31,21 @@ public class RegistrationService {
 	public Registration findById(Long id) {
 		Optional<Registration> opt = registrationRepository.findById(id);
 		return opt.orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+	
+	public Boolean findByDoc(String doc) {
+		List<Restriction> object = restrictionRepository.findAll();
+		Boolean active = false;
+		
+		for(Restriction person : object) {
+			if(person.getDocumentNumber().equals(doc)) {
+				System.out.println("restrictionDocument FOR " + person.getDocumentNumber());
+				active = true;
+				System.out.println("for if 45" + active);
+				break;
+			}
+		}
+		return active;
 	}
 	
 	public Registration insert(Registration reg) {
@@ -38,7 +57,9 @@ public class RegistrationService {
 			if(age > 17) {
 				String document = reg.getDocument();
 				
-				Boolean doc = restrictionDocument(document);
+				System.out.println("insert " + document);
+				
+				Boolean doc = findByDoc(document);
 				
 				if(!doc) {
 					reg.setDecision("APPROVED");
@@ -88,9 +109,5 @@ public class RegistrationService {
 		}
 		
 		return age;
-	}
-	
-	private Boolean restrictionDocument(String doc) {
-		return false;
 	}
 }

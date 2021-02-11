@@ -4,14 +4,17 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
 @Entity
+@Table(name="Registrations")
 public class Registration implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +35,7 @@ public class Registration implements Serializable{
 	@NotNull
 	private Date birthDate;
 	@NotNull
+	@Column(unique=true)
 	private String document;
 	@NotNull
 	private String phone;

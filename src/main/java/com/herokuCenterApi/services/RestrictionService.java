@@ -30,7 +30,7 @@ public class RestrictionService {
 		Optional<Restriction> opt = repository.findById(id);
 		return opt.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
+
 	public Restriction insert(Restriction rest) {
 		rest.setCreatedAt(Instant.now());
 		rest.setUpdatedAt(Instant.now());
