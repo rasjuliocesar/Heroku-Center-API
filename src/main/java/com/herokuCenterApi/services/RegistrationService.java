@@ -39,7 +39,7 @@ public class RegistrationService {
 		
 		for(Restriction person : object) {
 			if(person.getDocumentNumber().equals(doc)) {
-				active = true;
+				active = person.getActive();
 				break;
 			}
 		}
