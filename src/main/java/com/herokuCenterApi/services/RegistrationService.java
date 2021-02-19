@@ -39,9 +39,7 @@ public class RegistrationService {
 		
 		for(Restriction person : object) {
 			if(person.getDocumentNumber().equals(doc)) {
-				System.out.println("restrictionDocument FOR " + person.getDocumentNumber());
 				active = true;
-				System.out.println("for if 45" + active);
 				break;
 			}
 		}
@@ -56,8 +54,6 @@ public class RegistrationService {
 			
 			if(age > 17) {
 				String document = reg.getDocument();
-				
-				System.out.println("insert " + document);
 				
 				Boolean doc = findByDoc(document);
 				

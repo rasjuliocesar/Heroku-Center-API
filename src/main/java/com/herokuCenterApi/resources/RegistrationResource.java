@@ -35,7 +35,7 @@ public class RegistrationResource {
 		return ResponseEntity.ok().body(reg);
 	}
 	
-	@GetMapping(value ="/{doc}")
+	@GetMapping(value ="/document/{doc}")
 	public ResponseEntity<Boolean> findByDoc(@PathVariable String doc){
 		Boolean reg = registrationService.findByDoc(doc);
 		return ResponseEntity.ok().body(reg);
