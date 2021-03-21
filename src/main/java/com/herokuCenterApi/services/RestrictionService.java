@@ -62,4 +62,5 @@ public class RestrictionService {
 		rest.setActive(obj.getActive());
 		rest.setUpdatedAt(Instant.now());
 	}
+
 }

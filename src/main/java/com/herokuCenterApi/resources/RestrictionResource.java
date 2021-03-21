@@ -55,4 +55,5 @@ public class RestrictionResource {
 		rest = service.update(id, rest);
 		return ResponseEntity.ok().body(rest);
 	}
+	
 }
